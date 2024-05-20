@@ -33,7 +33,37 @@ namespace TP_CarritoWeb_Equipo_27
                 
             }
         }
+        private decimal totalPrecio
+        {
+            get
+            {
+                if (Session["totalPrecio"] == null)
+                {
+                    Session["totalPrecio"] = 0;
+                }
+                return decimal.Parse(Session["totalPrecio"].ToString());
+            }
+            set
+            {
+                Session["totalPrecio"] = value;
+            }
+        }
 
+        private int contador
+        {
+            get
+            {
+                if (Session["Contador"] == null)
+                {
+                    Session["Contador"] = 0;
+                }
+                return (int)Session["Contador"];
+            }
+            set
+            {
+                Session["Contador"] = value;
+            }
+        }
         public void Page_Load(object sender, EventArgs e)
         {
 
@@ -73,6 +103,13 @@ namespace TP_CarritoWeb_Equipo_27
 
             repeaterLista.DataSource = listaCarrito;
             repeaterLista.DataBind();
+            contador = 0;
+            totalPrecio = 0;
+            foreach (ElementosCarrito elemen in listaCarrito)
+            {
+                contador += elemen.cantidad;
+                totalPrecio += elemen.art.Precio * elemen.cantidad;
+            }
 
         }
 
@@ -95,6 +132,7 @@ namespace TP_CarritoWeb_Equipo_27
                     ElementosCarrito eleTmp = new ElementosCarrito();
                     eleTmp.art = selectedItem.art;
                     eleTmp.cantidad = 1;
+                    eleTmp.imagenes = selectedItem.imagenes;
                     listaCarrito.Add(eleTmp);
                     actualizarBindListaCarro();
                 }
@@ -142,6 +180,13 @@ namespace TP_CarritoWeb_Equipo_27
             Button btn = (Button)sender;
             string idArticulo = btn.CommandArgument;
             Response.Redirect($"DetalleProducto.aspx?id={idArticulo}");
+        }
+        protected void BotonEliminar_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int itemId = int.Parse(btn.CommandArgument);
+            listaCarrito.Remove(listaCarrito.Find(i => i.art.Id == itemId));
+            actualizarBindListaCarro();
         }
     }
 

@@ -34,25 +34,59 @@
                 <ContentTemplate>
                     <asp:Repeater ID="repeaterLista" runat="server">
                         <ItemTemplate>
-                            <div>
-                                Nombre:
-                                <label style="font-weight: bold;"><%# DataBinder.Eval(Container.DataItem, "art.Nombre") %> </label>
-                            </div>
-                            <div>
-                                ID:
-                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("art.id") %>' Visible="true"></asp:Label>
-                            </div>
-                            <div>
-                                <asp:Button ID="ButtonSumar" runat="server" CssClass="btn btn-secondary" Text="+" OnClick="sumarCant" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
-                                <asp:Label ID="LabelCantidad" runat="server" Text='<%# "Cantidad: " + Eval("cantidad") %>'></asp:Label>
-                                <asp:Button ID="ButtonRest" runat="server" CssClass="btn btn-secondary" Text="-" OnClick="restarCant" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3" style="margin=4px;">
 
+                                        <asp:Image ID="imagenArticulo" ImageUrl='<%#Eval("imagenes[0].UrlImagen")%>' Width="100" runat="server"></asp:Image>
+
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-8 col-sm-6">
+                                                Nombre:
+                                                <label style="font-weight: bold;"><%# DataBinder.Eval(Container.DataItem, "art.Nombre") %> </label>
+                                            </div>
+                                            <div class="col-4 col-sm-6" style="align-items: center">
+                                                <div style="margin: 5px;">
+                                                    <asp:Label ID="LabelCantidad" runat="server" Text='<%# "Cantidad: " + Eval("cantidad") %>'></asp:Label>
+                                                    <div style="margin-bottom: 3px;">
+                                                        <asp:Button ID="ButtonRest" runat="server" CssClass="btn btn-secondary" Text="-" OnClick="restarCant" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
+                                                        <asp:Button ID="ButtonSumar" runat="server" CssClass="btn btn-secondary" Text="+" OnClick="sumarCant" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
+                                                    </div>
+                                                    <asp:Button ID="BotonEliminar" runat="server" CssClass="btn btn-danger" Text="Eliminar" OnClick="BotonEliminar_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </ItemTemplate>
                     </asp:Repeater>
-                    <asp:Button ID="btnLimpiarLista" runat="server" CssClass="btn btn-primary" Text="Limpiar" OnClick="btnLimpiarLista_Click" />
+                    <asp:Button ID="btnLimpiarLista" runat="server" CssClass="btn btn-danger" Text="Vaciar Carrito" OnClick="btnLimpiarLista_Click" />
+                    <hr />
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6>Total a pagar: </h6>
+                            </div>
+                            <div class="col-6 col-md-4">$ <%= Session["totalPrecio"] %></div>
+                        </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
     </div>
+
+    <script type="text/javascript">
+        //Logica para que se recargue la página cuando se actualizan los items.
+        document.addEventListener("DOMContentLoaded", function () {
+            var offcanvas = document.getElementById('offcanvasRight');
+
+            offcanvas.addEventListener('hidden.bs.offcanvas', function () {
+
+                window.location.href = 'Default.aspx';
+            });
+        });
+    </script>
 </asp:Content>
