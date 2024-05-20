@@ -30,6 +30,7 @@ namespace TP_CarritoWeb_Equipo_27
             set
             {
                 Session["listaCarritoActiva"] = value;
+                
             }
         }
 
@@ -135,5 +136,14 @@ namespace TP_CarritoWeb_Equipo_27
             listaCarrito = new List<ElementosCarrito>();
             actualizarBindListaCarro();
         }
+
+        protected void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string idArticulo = btn.CommandArgument;
+            Response.Redirect($"DetalleProducto.aspx?id={idArticulo}");
+        }
     }
+
+
 }

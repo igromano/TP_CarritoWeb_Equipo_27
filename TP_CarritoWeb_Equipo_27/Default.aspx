@@ -14,6 +14,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%#Eval("art.Nombre") %></h5>
                             <p class="card-text"><%#Eval("art.Descripcion") %></p>
+                            <asp:Button ID="botonDetalle" runat="server" Text="Ver detalle" CssClass="btn btn-primary" OnClick="btnVerDetalle_Click" CommandArgument='<%# Eval("art.id") %>' />
                         </div>
                         <div class="d-flex flex-row-reverse">
                             <asp:ImageButton ID="addCarrito" OnClick="addCarrito_Click" CommandArgument='<%#Eval("art.id") %>' CommandName="idArticulo" runat="server" CssClass="btn btn-primary" ImageUrl="~/Images/carrito-de-compras.png" />
@@ -33,10 +34,15 @@
                 <ContentTemplate>
                     <asp:Repeater ID="repeaterLista" runat="server">
                         <ItemTemplate>
-                                <div>Nombre: <label style="font-weight:bold;"><%# DataBinder.Eval(Container.DataItem, "art.Nombre") %> </label></div>
-                                <div>ID: <asp:Label ID="Label1" runat="server" Text='<%# Eval("art.id") %>' Visible="true"></asp:Label>
-                                </div>
-                                <div>
+                            <div>
+                                Nombre:
+                                <label style="font-weight: bold;"><%# DataBinder.Eval(Container.DataItem, "art.Nombre") %> </label>
+                            </div>
+                            <div>
+                                ID:
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("art.id") %>' Visible="true"></asp:Label>
+                            </div>
+                            <div>
                                 <asp:Button ID="ButtonSumar" runat="server" CssClass="btn btn-secondary" Text="+" OnClick="sumarCant" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
                                 <asp:Label ID="LabelCantidad" runat="server" Text='<%# "Cantidad: " + Eval("cantidad") %>'></asp:Label>
                                 <asp:Button ID="ButtonRest" runat="server" CssClass="btn btn-secondary" Text="-" OnClick="restarCant" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "art.Id") %>' />
