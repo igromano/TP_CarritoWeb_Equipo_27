@@ -4,6 +4,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
+
+        <div class="" style="margin-top: 55px; height: 65px; padding-top:5px; background-color:dimgrey">
+
+        <ul style="display: inline-flex; list-style-type: none; padding-top: 15px;">
+            <li style="display:inline-block;float:right">
+                <asp:label ID="lblBusqueda" CssClass="fw-bold" Text="Buscar Producto" runat="server"></asp:label>
+            </li>
+            <li style="display:inline-block; margin-left:15px; padding-bottom:15px">
+                <asp:TextBox CssClass="form-control" ID="txtBusqueda" runat="server"></asp:TextBox>
+            </li>
+            <li style="display:inline-block; margin-left:15px">
+                <asp:ImageButton ID="btnBusqueda" OnClick="setListaCarrito" runat="server" ImageUrl="Images/busqueda.png" Width="30" />
+            </li>
+        </ul>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <asp:Repeater ID="homeRepeater" runat="server">
             <ItemTemplate>

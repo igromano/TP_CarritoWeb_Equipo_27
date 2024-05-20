@@ -70,6 +70,7 @@
     <Content Include="Default.aspx" />
     <Content Include="detalleProducto.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Images\busqueda.png" />
     <Content Include="Images\carrito-de-compras.png" />
     <Content Include="Web.config" />
   </ItemGroup>

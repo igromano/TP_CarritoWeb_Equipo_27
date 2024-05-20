@@ -24,6 +24,33 @@ namespace TP_CarritoWeb_Equipo_27
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// Control lblBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBusqueda;
+
+        /// <summary>
+        /// Control txtBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBusqueda;
+
+        /// <summary>
+        /// Control btnBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnBusqueda;
+
+        /// <summary>
         /// Control homeRepeater.
         /// </summary>
         /// <remarks>

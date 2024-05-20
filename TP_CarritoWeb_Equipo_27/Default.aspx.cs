@@ -17,6 +17,25 @@ namespace TP_CarritoWeb_Equipo_27
         public List<Imagen> listaImagenes;
         public List<ElementosCarrito> carrito = new List<ElementosCarrito>();
         public ElementosCarrito tmpElemtoCarrito;
+
+
+        public List<ElementosCarrito> Carrito
+        {
+            get
+            {
+                if (Session["listaCarrito"] == null)
+                {
+                    Session["listaCarrito"] = new List<ElementosCarrito>();
+                }
+                return (List<ElementosCarrito>)Session["listaCarrito"];
+            }
+            set
+            {
+                Session["listaCarrito"] = value;
+            }
+        }
+
+
         protected List<ElementosCarrito> listaCarrito
         {
             get
@@ -95,6 +114,9 @@ namespace TP_CarritoWeb_Equipo_27
 
             }
 
+            listaImagenes = (List<Imagen>)Session["listaImagenes"];
+            listaArticulos = (List<Articulo>)Session["listaArticulos"];
+
             carrito = (List<ElementosCarrito>)Session["listaCarrito"];
 
         }
@@ -103,6 +125,8 @@ namespace TP_CarritoWeb_Equipo_27
 
             repeaterLista.DataSource = listaCarrito;
             repeaterLista.DataBind();
+            homeRepeater.DataSource = Carrito;
+            homeRepeater.DataBind();
             contador = 0;
             totalPrecio = 0;
             foreach (ElementosCarrito elemen in listaCarrito)
@@ -141,6 +165,36 @@ namespace TP_CarritoWeb_Equipo_27
             }
 
         }
+
+        public void setListaCarrito(object sender, EventArgs e)
+        {
+            Carrito.Clear();
+            setListaCarrito();
+            if (Carrito.FindAll(elemento => elemento.art.Nombre.ToLower().Contains(txtBusqueda.Text.ToLower())).Count > 0)
+            {
+                Carrito = Carrito.FindAll(elemento => elemento.art.Nombre.ToLower().Contains(txtBusqueda.Text.ToLower()));
+                actualizarBindListaCarro();
+            }
+            else
+            {
+                Carrito.Clear();
+                setListaCarrito();
+                actualizarBindListaCarro();
+            }
+            txtBusqueda.Text = "";
+        }
+
+        public void setListaCarrito()
+        {
+            foreach (Articulo art in listaArticulos)
+            {
+                tmpElemtoCarrito = new ElementosCarrito();
+                tmpElemtoCarrito.art = art;
+                tmpElemtoCarrito.imagenes = listaImagenes.FindAll(img => img.IdArticulo == art.Id);
+                Carrito.Add(tmpElemtoCarrito);
+            }
+        }
+
         protected void sumarCant(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
